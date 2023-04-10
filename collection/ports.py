@@ -1,4 +1,5 @@
 import nmap
+import json
 
 def scan_open_ports(devices):
 
@@ -11,26 +12,7 @@ def scan_open_ports(devices):
     for device in devices:
         print("scanning " + device)
         scans.append(nm.scan(
-            hosts=device, arguments="-sS -T5 -p 1-1024 --min-rate=5000 --max-retries=2"))
+            hosts=device, arguments="-T4 -A -v -p1-65535"))
 
-    print("Host information:")
-    for scan in scans:
-        for ip, host in scan['scan'].items():
-            print(f"\tIP: {ip}")
-            print(f"\tHostname: {host['hostnames'][0]['name']}")
-            if 'mac' in scan:
-                print(f"\tMAC Address: {host['addresses']['mac']}")
-            else:
-                print("\tNo mac address found.")
-
-            if 'tcp' in host:
-                for port, port_info in host['tcp'].items():
-                    print(f"\tPort: {port}")
-                    print(f"\t\tState: {port_info['state']}")
-                    print(f"\t\tService: {port_info['name']}")
-                    print(f"\t\tProduct: {port_info['product']}")
-                    print(f"\t\tVersion: {port_info['version']}")
-                    print(f"\t\tExtra Info: {port_info['extrainfo']}")
-            else:
-                print("\tNo open ports found.")
-            print("\n\n")
+    for each in scans:
+        print(json.dumps(each, indent=4))
