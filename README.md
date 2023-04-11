@@ -3,12 +3,13 @@ Integration of OpenAI into threat management
 
     If AI is so smart, why can't it find basic vulnerabilities and tell me how to patch them?
 
-Collection
-    All things data collection
+Environmental data collection
 
-        scan network
-        cross reference vulnerability resources against hosts on the network
+        fast scan network to find hosts
+        deep scan valuable hosts
         
-Action
+Fetch Vulnerabilities
+        fetch cve's for the services and os's running on all hosts
 
-Mutate
+Recommend
+        ask gpt to search for remediation techniques
